@@ -2,6 +2,8 @@ package fi.monkeyball.chezz.domain;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -31,12 +33,48 @@ public class ChessBoardTest {
     }
 
     @Test
-    public void useChessBoardFactoryForInitialChessBords() {
+    public void useChessBoardFactoryForInitialChessBoards() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         for(ChessBoard.Row row : chessBoard) {
             for(ChessBoard.Square square : row) {
                 assertTrue(square.isEmpty());
             }
         }
+    }
+
+    @Test
+    public void coordinatesAreAsExpectedInChessBoard() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        Iterator<ChessBoard.Row> iterator = chessBoard.iterator();
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._1);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._2);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._3);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._4);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._5);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._6);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._7);
+        checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._8);
+
+    }
+
+    private void checkRowIsAsExpected(ChessBoard.Row row, ChessBoard.ROW expected) {
+        assertEquals(expected, row.getRow());
+
+        Iterator<ChessBoard.Square> iterator = row.iterator();
+        assertEquals(ChessBoard.COLUMN.A, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.B, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.C, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.D, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.E, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.F, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.G, iterator.next().getColumn());
+        assertEquals(ChessBoard.COLUMN.H, iterator.next().getColumn());
+    }
+
+
+    @Test
+    public void whenLegalMovesSetIsRequestedEmptySquareMustReturnEmptySet() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        assertTrue(chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A).isEmpty());
     }
 }
