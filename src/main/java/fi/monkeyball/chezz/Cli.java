@@ -3,6 +3,7 @@ package fi.monkeyball.chezz;
 import fi.monkeyball.chezz.domain.ChessBoard;
 import fi.monkeyball.chezz.domain.ChessBoardFactory;
 import fi.monkeyball.chezz.domain.God;
+import fi.monkeyball.chezz.domain.Piece;
 
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class Cli {
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.gameStart();
 
-        chessBoard.placePiece(new God(), ChessBoard.ROW._5, ChessBoard.COLUMN.D);
+        chessBoard.placePiece(new God(Piece.Color.WHITE), ChessBoard.ROW._5, ChessBoard.COLUMN.D);
         Set<ChessBoard.Square> possibleMoves = chessBoard.moveSet(ChessBoard.ROW._5, ChessBoard.COLUMN.D);
 
         System.out.println(" abcdefgh ");
@@ -23,9 +24,11 @@ public class Cli {
             System.out.print(c);
             for (ChessBoard.Square square : squares) {
                 if(possibleMoves.contains(square)) {
-                    System.out.print(square.isEmpty() ? "'" : "E");
+                    System.out.print(square.isEmpty() ? "'" :
+                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "W" : "B");
                 } else {
-                    System.out.print(square.isEmpty() ? " " : "*");
+                    System.out.print(square.isEmpty() ? " " :
+                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "w" : "b");
                 }
             }
             System.out.println(c--);
@@ -33,9 +36,10 @@ public class Cli {
         System.out.println(" abcdefgh ");
         System.out.println("");
         System.out.println("' can move here");
-        System.out.println("E contains pieve and can knock");
-        System.out.println("* contains piece");
-
+        System.out.println("w contains white piece");
+        System.out.println("b contains black piece");
+        System.out.println("W contains white piece for capturing");
+        System.out.println("B contains black piece for capturing");
     }
 
 }
