@@ -4,7 +4,12 @@ package fi.monkeyball.chezz.domain;
  * Created by juho on 5/24/15.
  */
 public class ChessBoardFactory {
-    public static ChessBoard initialState() {
+
+    public static ChessBoard emptyBoard() {
+        return new ChessBoard();
+    }
+
+    public static ChessBoard gameStart() {
         ChessBoard chessBoard = new ChessBoard();
 
         chessBoard.placePiece(new Piece(), ChessBoard.ROW._1, ChessBoard.COLUMN.A);

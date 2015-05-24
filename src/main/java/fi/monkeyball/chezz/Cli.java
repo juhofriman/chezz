@@ -9,7 +9,7 @@ import fi.monkeyball.chezz.domain.ChessBoardFactory;
 public class Cli {
 
     public static void main(String[] args) {
-        ChessBoard chessBoard = ChessBoardFactory.initialState();
+        ChessBoard chessBoard = ChessBoardFactory.gameStart();
         System.out.println(" abcdefgh ");
         int c = 8;
         for (ChessBoard.Row squares : chessBoard) {
