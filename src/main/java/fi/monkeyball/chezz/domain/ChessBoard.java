@@ -16,6 +16,32 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
         ROW(int index) {
             this.index = index;
         }
+
+        public ROW next() {
+            switch(this) {
+                case _1: return _2;
+                case _2: return _3;
+                case _3: return _4;
+                case _4: return _5;
+                case _5: return _6;
+                case _6: return _7;
+                case _7: return _8;
+                default: return null;
+            }
+        }
+
+        public ROW previous() {
+            switch(this) {
+                case _2: return _1;
+                case _3: return _2;
+                case _4: return _3;
+                case _5: return _4;
+                case _6: return _5;
+                case _7: return _6;
+                case _8: return _7;
+                default: return null;
+            }
+        }
     }
     public enum COLUMN {
 
@@ -25,6 +51,32 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
 
         COLUMN(int index) {
             this.index = index;
+        }
+
+        public COLUMN next() {
+            switch(this) {
+                case A: return B;
+                case B: return C;
+                case C: return D;
+                case D: return E;
+                case E: return F;
+                case F: return G;
+                case G: return H;
+                default: return null;
+            }
+        }
+
+        public COLUMN previous() {
+            switch(this) {
+                case B: return A;
+                case C: return B;
+                case D: return C;
+                case E: return D;
+                case F: return E;
+                case G: return F;
+                case H: return G;
+                default: return null;
+            }
         }
     }
 
@@ -55,6 +107,9 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
     }
 
     public Square squareAt(ROW row, COLUMN column) {
+        if(row == null || column == null) {
+            return null;
+        }
         return this.rows.get(row.index).squares.get(column.index);
     }
 
@@ -121,6 +176,11 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
 
         public COLUMN getColumn() {
             return column;
+        }
+
+        @Override
+        public String toString() {
+            return column.toString() + row.toString();
         }
     }
 }

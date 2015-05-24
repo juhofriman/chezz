@@ -13,13 +13,11 @@ public class God extends Piece {
     }
 
     @Override
-    public Set<ChessBoard.Square> movesFrom(ChessBoard chessBoard, ChessBoard.Square location) {
+    public Set<ChessBoard.Square> allMovesOfThisPiece(ChessBoard chessBoard, ChessBoard.Square location) {
         HashSet<ChessBoard.Square> squares = new HashSet<ChessBoard.Square>();
         for (ChessBoard.Row row : chessBoard) {
             for (ChessBoard.Square square : row) {
-                if(square != location &&
-                        (square.getPiece() == null ||
-                                !square.getPiece().getColor().equals(this.getColor()))) {
+                if(square != location) {
                     squares.add(square);
                 }
             }

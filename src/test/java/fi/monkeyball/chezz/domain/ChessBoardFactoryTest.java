@@ -2,6 +2,7 @@ package fi.monkeyball.chezz.domain;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -32,19 +33,19 @@ public class ChessBoardFactoryTest {
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.B, Piece.Color.WHITE);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.C, Piece.Color.WHITE);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.D, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.E, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.E, Piece.Color.WHITE, King.class);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.F, Piece.Color.WHITE);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.G, Piece.Color.WHITE);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.H, Piece.Color.WHITE);
 
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.H, Piece.Color.WHITE);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.A, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._3, ChessBoard.COLUMN.B, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._4, ChessBoard.COLUMN.C, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._5, ChessBoard.COLUMN.D, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._6, ChessBoard.COLUMN.E, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.F, Piece.Color.WHITE);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.G, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.B, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.C, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.D, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.E, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.F, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.G, Piece.Color.WHITE);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.H, Piece.Color.WHITE);
 
 
         assertRowIsEmpty(chessBoard, ChessBoard.ROW._3);
@@ -52,28 +53,34 @@ public class ChessBoardFactoryTest {
         assertRowIsEmpty(chessBoard, ChessBoard.ROW._5);
         assertRowIsEmpty(chessBoard, ChessBoard.ROW._6);
 
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.A, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.B, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.C, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.D, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.E, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.F, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.G, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.H, Piece.Color.BLACK);
-
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.H, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._2, ChessBoard.COLUMN.A, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._3, ChessBoard.COLUMN.B, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._4, ChessBoard.COLUMN.C, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._5, ChessBoard.COLUMN.D, Piece.Color.BLACK);
-        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._6, ChessBoard.COLUMN.E, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.A, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.B, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.C, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.D, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.E, Piece.Color.BLACK);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.F, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.G, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._7, ChessBoard.COLUMN.H, Piece.Color.BLACK);
+
+
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.A, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.B, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.C, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.D, Piece.Color.BLACK, King.class);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.E, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.F, Piece.Color.BLACK);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.G, Piece.Color.BLACK);
+        assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._8, ChessBoard.COLUMN.H, Piece.Color.BLACK);
 
     }
 
-    private void assertNotEmptyAndIsCorrectColor(ChessBoard chessBoard, ChessBoard.ROW row, ChessBoard.COLUMN a, Piece.Color white) {
+    private void assertNotEmptyAndIsCorrectColor(ChessBoard chessBoard, ChessBoard.ROW row, ChessBoard.COLUMN column, Piece.Color color) {
+        assertNotEmptyAndIsCorrectColor(chessBoard, row, column, color, Rock.class);
+    }
 
+    private void assertNotEmptyAndIsCorrectColor(ChessBoard chessBoard, ChessBoard.ROW row, ChessBoard.COLUMN column, Piece.Color color, Class<? extends Piece> pieceClass) {
+        assertEquals(color, chessBoard.squareAt(row, column).getPiece().getColor());
+        assertEquals("Unexpected piece at " + column + " " + row, pieceClass, chessBoard.squareAt(row, column).getPiece().getClass());
     }
 
     private void assertRowIsEmpty(ChessBoard chessBoard, ChessBoard.ROW row) {
@@ -86,4 +93,6 @@ public class ChessBoardFactoryTest {
         assertTrue(chessBoard.squareAt(row, ChessBoard.COLUMN.G).isEmpty());
         assertTrue(chessBoard.squareAt(row, ChessBoard.COLUMN.H).isEmpty());
     }
+
+
 }
