@@ -4,6 +4,7 @@ import org.junit.Before;
 
 import java.util.Set;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -33,6 +34,12 @@ public abstract class PieceTests {
     }
 
     protected void containsSquare(Set<ChessBoard.Square> moveSet, ChessBoard.Square square) {
-        assertTrue("Moveset did not contain expected square " + square, moveSet.contains(square));
+        assertTrue("Moveset for '" + actor + "' " + moveSet + " did not contain expected square " + square,
+                moveSet.contains(square));
+    }
+
+    protected void doesNotContainSquare(Set<ChessBoard.Square> moveSet, ChessBoard.Square square) {
+        assertFalse("Moveset for '" + actor + "' " + moveSet + " did contain unexpected square " + square,
+                moveSet.contains(square));
     }
 }

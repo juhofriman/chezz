@@ -5,6 +5,9 @@ import fi.monkeyball.chezz.domain.ChessBoardFactory;
 import fi.monkeyball.chezz.domain.God;
 import fi.monkeyball.chezz.domain.Piece;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,24 +18,31 @@ public class Cli {
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.gameStart();
 
-        chessBoard.placePiece(new God(Piece.Color.WHITE), ChessBoard.ROW._5, ChessBoard.COLUMN.D);
-        Set<ChessBoard.Square> possibleMoves = chessBoard.moveSet(ChessBoard.ROW._5, ChessBoard.COLUMN.D);
+        chessBoard.placePiece(new God(Piece.Color.BLACK), ChessBoard.ROW._3, ChessBoard.COLUMN.D);
+        Set<ChessBoard.Square> possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.E);
 
         System.out.println(" abcdefgh ");
-        int c = 8;
+        List<String> rows = new LinkedList();
+        int c = 1;
         for (ChessBoard.Row squares : chessBoard) {
-            System.out.print(c);
+            String row = "" + c;
             for (ChessBoard.Square square : squares) {
                 if(possibleMoves.contains(square)) {
-                    System.out.print(square.isEmpty() ? "'" :
-                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "W" : "B");
+                    row += square.isEmpty() ? "'" :
+                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "W" : "B";
                 } else {
-                    System.out.print(square.isEmpty() ? " " :
-                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "w" : "b");
+                    row += square.isEmpty() ? " " :
+                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? "w" : "b";
                 }
             }
-            System.out.println(c--);
+            row += c++;
+            rows.add(row);
         }
+        Collections.reverse(rows);
+        for (String row : rows) {
+            System.out.println(row);
+        }
+
         System.out.println(" abcdefgh ");
         System.out.println("");
         System.out.println("' can move here");
