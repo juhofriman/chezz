@@ -17,7 +17,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
             this.index = index;
         }
 
-        public ROW next() {
+        public ROW north() {
             switch(this) {
                 case _1: return _2;
                 case _2: return _3;
@@ -30,7 +30,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
             }
         }
 
-        public ROW previous() {
+        public ROW east() {
             switch(this) {
                 case _2: return _1;
                 case _3: return _2;
@@ -53,7 +53,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
             this.index = index;
         }
 
-        public COLUMN next() {
+        public COLUMN east() {
             switch(this) {
                 case A: return B;
                 case B: return C;
@@ -66,7 +66,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
             }
         }
 
-        public COLUMN previous() {
+        public COLUMN west() {
             switch(this) {
                 case B: return A;
                 case C: return B;
@@ -93,24 +93,35 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
         rows.add(new Row(ROW._8));
     }
 
-    public Set<Square> moveSet(ROW row, COLUMN f) {
-        Square square = squareAt(row, f);
+
+    @Override
+    public Iterator<Row> iterator() {
+        return rows.iterator();
+    }
+    public Set<Square> moveSet(COLUMN column, ROW row) {
+        return this.moveSet(row, column);
+    }
+
+    public Set<Square> moveSet(ROW row, COLUMN column) {
+        Square square = this.squareAt(row, column);
         if(square.isEmpty()) {
             return Collections.emptySet();
         }
         return square.getPiece().movesFrom(this, square);
     }
 
-    @Override
-    public Iterator<Row> iterator() {
-        return rows.iterator();
+    public Square squareAt(COLUMN column, ROW row) {
+        return this.squareAt(row, column);
     }
-
     public Square squareAt(ROW row, COLUMN column) {
         if(row == null || column == null) {
             return null;
         }
         return this.rows.get(row.index).squares.get(column.index);
+    }
+
+    public void placePiece(Piece piece, COLUMN column, ROW row) {
+        this.placePiece(piece, row, column);
     }
 
     public void placePiece(Piece piece, ROW row, COLUMN column) {

@@ -8,8 +8,6 @@ import java.util.Set;
  */
 public class Pawn extends Piece {
 
-    private boolean atStartingLocation = true;
-
     public Pawn(Color color) {
         super(color);
     }
@@ -18,26 +16,26 @@ public class Pawn extends Piece {
     protected Set<ChessBoard.Square> allMovesOfThisPiece(ChessBoard chessBoard, ChessBoard.Square location) {
         HashSet<ChessBoard.Square> moveSet = new HashSet();
         if(this.getColor().equals(Color.WHITE)) {
-            moveSet.add(chessBoard.squareAt(location.getRow().next(), location.getColumn()));
+            moveSet.add(chessBoard.squareAt(location.getRow().north(), location.getColumn()));
             if (this.atStartingLocation(location)) {
-                moveSet.add(chessBoard.squareAt(location.getRow().next().next(), location.getColumn()));
+                moveSet.add(chessBoard.squareAt(location.getRow().north().north(), location.getColumn()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().next(), location.getColumn().next()))) {
-                moveSet.add(chessBoard.squareAt(location.getRow().next(), location.getColumn().next()));
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()))) {
+                moveSet.add(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().next(), location.getColumn().previous()))) {
-                moveSet.add(chessBoard.squareAt(location.getRow().next(), location.getColumn().previous()));
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()))) {
+                moveSet.add(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
             }
         } else {
-            moveSet.add(chessBoard.squareAt(location.getRow().previous(), location.getColumn()));
+            moveSet.add(chessBoard.squareAt(location.getRow().east(), location.getColumn()));
             if (this.atStartingLocation(location)) {
-                moveSet.add(chessBoard.squareAt(location.getRow().previous().previous(), location.getColumn()));
+                moveSet.add(chessBoard.squareAt(location.getRow().east().east(), location.getColumn()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().previous(), location.getColumn().next()))) {
-                moveSet.add(chessBoard.squareAt(location.getRow().previous(), location.getColumn().next()));
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()))) {
+                moveSet.add(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().previous(), location.getColumn().previous()))) {
-                moveSet.add(chessBoard.squareAt(location.getRow().previous(), location.getColumn().previous()));
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()))) {
+                moveSet.add(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
             }
         }
         return moveSet;

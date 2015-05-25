@@ -16,14 +16,14 @@ public class King extends Piece {
     public Set<ChessBoard.Square> allMovesOfThisPiece(ChessBoard chessBoard, ChessBoard.Square location) {
         HashSet<ChessBoard.Square> squares = new HashSet<ChessBoard.Square>();
 
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().next()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().previous()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().next(), location.getColumn()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().next(), location.getColumn().next()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().next(), location.getColumn().previous()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().previous(), location.getColumn()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().previous(), location.getColumn().next()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().previous(), location.getColumn().previous()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().east()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().west()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
+        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
 
         return squares;
     }
