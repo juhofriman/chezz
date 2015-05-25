@@ -98,14 +98,14 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
     public Iterator<Row> iterator() {
         return rows.iterator();
     }
-    public Set<Square> moveSet(COLUMN column, ROW row) {
+    public MoveSet moveSet(COLUMN column, ROW row) {
         return this.moveSet(row, column);
     }
 
-    public Set<Square> moveSet(ROW row, COLUMN column) {
+    public MoveSet moveSet(ROW row, COLUMN column) {
         Square square = this.squareAt(row, column);
         if(square.isEmpty()) {
-            return Collections.emptySet();
+            return MoveSet.EMPTY;
         }
         return square.getPiece().movesFrom(this, square);
     }

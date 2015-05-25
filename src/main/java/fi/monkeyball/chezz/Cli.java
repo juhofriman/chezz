@@ -1,9 +1,6 @@
 package fi.monkeyball.chezz;
 
-import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
-import fi.monkeyball.chezz.domain.God;
-import fi.monkeyball.chezz.domain.Piece;
+import fi.monkeyball.chezz.domain.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -19,7 +16,7 @@ public class Cli {
         ChessBoard chessBoard = ChessBoardFactory.gameStart();
 
         chessBoard.placePiece(new God(Piece.Color.BLACK), ChessBoard.ROW._3, ChessBoard.COLUMN.D);
-        Set<ChessBoard.Square> possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.E);
+        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._3, ChessBoard.COLUMN.D);
 
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();

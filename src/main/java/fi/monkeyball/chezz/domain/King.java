@@ -13,19 +13,16 @@ public class King extends Piece {
     }
 
     @Override
-    public Set<ChessBoard.Square> allMovesOfThisPiece(ChessBoard chessBoard, ChessBoard.Square location) {
-        HashSet<ChessBoard.Square> squares = new HashSet<ChessBoard.Square>();
+    protected void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location) {
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow(), location.getColumn().east()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow(), location.getColumn().west()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
 
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().east()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow(), location.getColumn().west()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
-        addIfOnBoard(squares, chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
-
-        return squares;
     }
 
     private void addIfOnBoard(HashSet<ChessBoard.Square> squares, ChessBoard.Square square) {

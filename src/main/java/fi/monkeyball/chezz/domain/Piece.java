@@ -19,26 +19,13 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public final Set<ChessBoard.Square> movesFrom(ChessBoard chessBoard, ChessBoard.Square location) {
-        return Sets.filter(allMovesOfThisPiece(chessBoard, location), new Predicate<ChessBoard.Square>() {
-            @Override
-            public boolean apply(ChessBoard.Square square) {
-                if(square.isEmpty()) {
-                    return true;
-                }
-                return !square.getPiece().getColor().equals(getColor());
-            }
-        });
+    public final MoveSet movesFrom(ChessBoard chessBoard, ChessBoard.Square location) {
+        MoveSet squares = new MoveSet(this);
+        registerMovesOfThisPiece(squares, chessBoard, location);
+        return squares;
     }
 
-    /**
-     * This must return all possible moves for piece. Friendlies are removed at superclass
-     *
-     * @param chessBoard
-     * @param location
-     * @return
-     */
-    protected abstract Set<ChessBoard.Square> allMovesOfThisPiece(ChessBoard chessBoard, ChessBoard.Square location);
+    protected abstract void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location);
 
     public Color getColor() {
         return color;
