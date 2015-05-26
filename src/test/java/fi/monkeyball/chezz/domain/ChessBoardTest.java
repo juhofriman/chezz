@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -83,4 +84,39 @@ public class ChessBoardTest {
             }
         }
     }
+
+    @Test
+    public void piecesCanMove() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+
+        chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._8));
+
+        assertTrue("Found piece at original place after move",
+                chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).isEmpty());
+        assertFalse("Did not found piece at expected place after move",
+                chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._8).isEmpty());
+    }
+
+    @Test(expected = ChessBoardException.class)
+    public void pieceCantMoveIfNotInMoveSet() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+
+        // This is not how Rook moves
+        chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._4));
+    }
+
+    @Test(expected = ChessBoardException.class)
+    public void cantMoveEmptySquare() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+
+        // It's empty board
+        chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._4));
+    }
+
+
 }

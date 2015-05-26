@@ -29,7 +29,16 @@ public class Cli {
         MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A);
         System.out.println(possibleMoves);
 
+        System.out.println("Before move");
         print(chessBoard, possibleMoves);
+        chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
+
+        System.out.println("After move");
+        print(chessBoard);
+    }
+
+    private static void print(ChessBoard chessBoard) {
+        print(chessBoard, MoveSet.EMPTY);
     }
 
     private static void print(ChessBoard chessBoard, MoveSet possibleMoves) {

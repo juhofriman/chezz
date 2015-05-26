@@ -44,11 +44,11 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 default: return null;
             }
         }
+
     }
     public static enum COLUMN {
 
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
-
         private int index;
 
         COLUMN(int index) {
@@ -80,8 +80,8 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 default: return null;
             }
         }
-    }
 
+    }
     private ArrayList<RowContainer> rowContainers = new ArrayList<RowContainer>(8);
 
     public ChessBoard() {
@@ -100,22 +100,61 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         return rowContainers.iterator();
     }
 
-    public MoveSet moveSet(COLUMN column, ROW row) {
-        return this.moveSet(row, column);
+    public void move(Square from, Square to) {
+        if(from.isEmpty()) {
+            throw new ChessBoardException("Can't move " + from + " because it's empty");
+        }
+        MoveSet squares = this.moveSet(from);
+        if(!squares.contains(to)) {
+            throw new ChessBoardException("Can't move " + from + " to " + to);
+        }
+        to.setPiece(from.getPiece());
+        from.setPiece(null);
     }
 
+    @Deprecated
+    public MoveSet moveSet(COLUMN column, ROW row) {
+        Square square = this.squareAt(row, column);
+        return moveSet(square);
+    }
+
+    @Deprecated
     public MoveSet moveSet(ROW row, COLUMN column) {
         Square square = this.squareAt(row, column);
+        return moveSet(square);
+    }
+
+    /**
+     * Returns set of allowed moves from this square
+     *
+     * @param square
+     * @return
+     */
+    private MoveSet moveSet(Square square) {
         if(square.isEmpty()) {
             return MoveSet.EMPTY;
         }
         return square.getPiece().movesFrom(this, square);
     }
 
+    /**
+     * Returns Square at certain chessboard location
+     *
+     * @param column
+     * @param row
+     * @return
+     */
     public Square squareAt(COLUMN column, ROW row) {
         return this.squareAt(row, column);
     }
 
+    /**
+     * Returns Square at certain chessboard location
+     *
+     * @param column
+     * @param row
+     * @return
+     */
     public Square squareAt(ROW row, COLUMN column) {
         if(row == null || column == null) {
             return  OUT_OF_BOARD;
@@ -123,12 +162,24 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         return this.rowContainers.get(row.index).squares.get(column.index);
     }
 
+    @Deprecated
     public void placePiece(Piece piece, COLUMN column, ROW row) {
         this.placePiece(piece, row, column);
     }
 
+    @Deprecated
     public void placePiece(Piece piece, ROW row, COLUMN column) {
         squareAt(row, column).setPiece(piece);
+    }
+
+    /**
+     * Places Piece at Square
+     *
+     * @param piece
+     * @param square
+     */
+    public void placePiece(Piece piece, Square square) {
+        square.setPiece(piece);
     }
 
     public static class RowContainer implements Iterable<Square> {
@@ -169,6 +220,26 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         private Square(ROW row, COLUMN column) {
             this.row = row;
             this.column = column;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Square square = (Square) o;
+
+            if (column != square.column) return false;
+            if (row != square.row) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = row.hashCode();
+            result = 31 * result + column.hashCode();
+            return result;
         }
 
         public boolean isEmpty() {
