@@ -23,17 +23,9 @@ public class Cli {
 
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Knight(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._1));
-        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._3));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.E, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.G, ChessBoard.ROW._2));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._2));
-        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.D));
+        chessBoard.placePiece(new Queen(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._4));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._3));
+        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.D));
         System.out.println(possibleMoves);
 
         System.out.println("Before move");
@@ -84,6 +76,9 @@ public class Cli {
         }
         if(square.getPiece() instanceof Knight) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("h", capturable) : green("h", capturable);
+        }
+        if(square.getPiece() instanceof Bishop) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("b", capturable) : green("b", capturable);
         }
         if(square.getPiece() instanceof Pawn) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("p", capturable) : green("p", capturable);
