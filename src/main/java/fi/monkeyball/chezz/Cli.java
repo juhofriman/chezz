@@ -23,10 +23,10 @@ public class Cli {
 
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.COLUMN.A, ChessBoard.ROW._5);
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.COLUMN.C, ChessBoard.ROW._1);
-        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE),chessBoard.squareAt( ChessBoard.COLUMN.C, ChessBoard.ROW._1));
+        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
         System.out.println(possibleMoves);
 
         System.out.println("Before move");

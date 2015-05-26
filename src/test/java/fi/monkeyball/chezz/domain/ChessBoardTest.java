@@ -5,9 +5,9 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNull;
 
 /**
  * Created by juho on 5/24/15.
@@ -80,7 +80,7 @@ public class ChessBoardTest {
             for (ChessBoard.Square square : squares) {
                 // TODO: this could return Empty Piece which does not move and is friendly to everyone
                 assertNull(chessBoard.squareAt(square.getColumn(), square.getRow()).getPiece());
-                assertTrue(chessBoard.moveSet(square.getColumn(), square.getRow()).isEmpty());
+                assertTrue(chessBoard.moveSet(chessBoard.squareAt(square.getColumn(), square.getRow())).isEmpty());
             }
         }
     }
@@ -88,7 +88,7 @@ public class ChessBoardTest {
     @Test
     public void piecesCanMove() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 
         chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
                 chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._8));
@@ -102,7 +102,7 @@ public class ChessBoardTest {
     @Test(expected = ChessBoardException.class)
     public void pieceCantMoveIfNotInMoveSet() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 
         // This is not how Rook moves
         chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),

@@ -112,25 +112,13 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         from.setPiece(null);
     }
 
-    @Deprecated
-    public MoveSet moveSet(COLUMN column, ROW row) {
-        Square square = this.squareAt(row, column);
-        return moveSet(square);
-    }
-
-    @Deprecated
-    public MoveSet moveSet(ROW row, COLUMN column) {
-        Square square = this.squareAt(row, column);
-        return moveSet(square);
-    }
-
     /**
      * Returns set of allowed moves from this square
      *
      * @param square
      * @return
      */
-    private MoveSet moveSet(Square square) {
+    public MoveSet moveSet(Square square) {
         if(square.isEmpty()) {
             return MoveSet.EMPTY;
         }
@@ -160,16 +148,6 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
             return  OUT_OF_BOARD;
         }
         return this.rowContainers.get(row.index).squares.get(column.index);
-    }
-
-    @Deprecated
-    public void placePiece(Piece piece, COLUMN column, ROW row) {
-        this.placePiece(piece, row, column);
-    }
-
-    @Deprecated
-    public void placePiece(Piece piece, ROW row, COLUMN column) {
-        squareAt(row, column).setPiece(piece);
     }
 
     /**

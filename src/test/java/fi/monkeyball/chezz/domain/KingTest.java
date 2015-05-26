@@ -21,9 +21,9 @@ public class KingTest extends PieceTests {
     @Test
     public void testMovesWhenEverywhereIsFreedom() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new King(Piece.Color.WHITE), ChessBoard.ROW._4, ChessBoard.COLUMN.B);
+        chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
 
-        MoveSet kingMoveSet = chessBoard.moveSet(ChessBoard.ROW._4, ChessBoard.COLUMN.B);
+        MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
 
         assertDoesNotContainFriendlies(kingMoveSet, Piece.Color.WHITE);
         containsSquare(kingMoveSet, chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.B));
@@ -40,9 +40,9 @@ public class KingTest extends PieceTests {
     @Test
     public void testOnCorner() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new King(Piece.Color.WHITE), ChessBoard.ROW._1, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
 
-        MoveSet kingMoveSet = chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A);
+        MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
 
         assertDoesNotContainFriendlies(kingMoveSet, Piece.Color.WHITE);
         containsSquare(kingMoveSet, chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.B));
@@ -53,10 +53,10 @@ public class KingTest extends PieceTests {
     @Test
     public void testRemovesFriendlySquares() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new King(Piece.Color.WHITE), ChessBoard.ROW._1, ChessBoard.COLUMN.A);
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._1, ChessBoard.COLUMN.B);
+        chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.B));
 
-        MoveSet kingMoveSet = chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A);
+        MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
 
         assertDoesNotContainFriendlies(kingMoveSet, Piece.Color.WHITE);
         containsSquare(kingMoveSet, chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
