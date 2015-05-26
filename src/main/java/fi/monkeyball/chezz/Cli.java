@@ -72,6 +72,9 @@ public class Cli {
         if(square.getPiece() instanceof King) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("k", capturable) : green("k", capturable);
         }
+        if(square.getPiece() instanceof Queen) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("q", capturable) : green("q", capturable);
+        }
         if(square.getPiece() instanceof Knight) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("h", capturable) : green("h", capturable);
         }
