@@ -1,8 +1,5 @@
 package fi.monkeyball.chezz.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by juho on 5/25/15.
  */
@@ -15,26 +12,38 @@ public class Pawn extends Piece {
     @Override
     protected void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location) {
         if(this.getColor().equals(Color.WHITE)) {
-            moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn()));
-            if (this.atStartingLocation(location)) {
+            // Pawn can move forward if square is empty
+            if(chessBoard.squareAt(location.getRow().north(), location.getColumn()).isEmpty()) {
+                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn()));
+            }
+            // If it's on starting location it can move two squares if no obstacles
+            if (this.atStartingLocation(location) && chessBoard.squareAt(location.getRow().north(), location.getColumn()).isEmpty()) {
                 moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north().north(), location.getColumn()));
             }
+            // Pawn can capture to north-east
             if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()))) {
                 moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
             }
+            // Pawn can capture to north-west
             if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()))) {
                 moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
             }
         } else {
-            moveSet.add(chessBoard.squareAt(location.getRow().east(), location.getColumn()));
-            if (this.atStartingLocation(location)) {
-                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east().east(), location.getColumn()));
+            // Pawn can move forward if square is empty
+            if(chessBoard.squareAt(location.getRow().south(), location.getColumn()).isEmpty()) {
+                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()))) {
-                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
+            // If it's on starting location it can move two squares if no obstacles
+            if (this.atStartingLocation(location) && chessBoard.squareAt(location.getRow().south(), location.getColumn()).isEmpty()) {
+                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south().south(), location.getColumn()));
             }
-            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()))) {
-                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
+            // Pawn can capture to south-east
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().south(), location.getColumn().east()))) {
+                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn().east()));
+            }
+            // Pawn can capture to south-west
+            if(atTableAndContainsEnemy(chessBoard.squareAt(location.getRow().south(), location.getColumn().west()))) {
+                moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn().west()));
             }
         }
     }

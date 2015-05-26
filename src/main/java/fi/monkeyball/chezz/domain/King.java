@@ -16,9 +16,9 @@ public class King extends Piece {
         moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn()));
         moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().east()));
         moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().north(), location.getColumn().west()));
-        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn()));
-        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().east()));
-        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().east(), location.getColumn().west()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn().east()));
+        moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow().south(), location.getColumn().west()));
 
     }
 

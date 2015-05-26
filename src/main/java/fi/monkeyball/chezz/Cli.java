@@ -22,10 +22,13 @@ public class Cli {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
-        ChessBoard chessBoard = ChessBoardFactory.gameStart();
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), ChessBoard.ROW._2, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._3, ChessBoard.COLUMN.A);
 
-        chessBoard.placePiece(new God(Piece.Color.BLACK), ChessBoard.ROW._3, ChessBoard.COLUMN.D);
-        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.D);
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), ChessBoard.ROW._7, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.ROW._6, ChessBoard.COLUMN.A);
+        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.A);
 
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();

@@ -92,7 +92,7 @@ public class PawnTest extends PieceTests {
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(ChessBoard.ROW._4, ChessBoard.COLUMN.B);
         assertDoesNotContainFriendlies(pawnMoveSet, Piece.Color.BLACK);
 
-        // Can move forward (to east)
+        // Can move forward (to south)
         containsSquare(pawnMoveSet, chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.C));
         // Can capture left
         containsSquare(pawnMoveSet, chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
@@ -107,5 +107,35 @@ public class PawnTest extends PieceTests {
         chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._5, ChessBoard.COLUMN.B);
 
         assertTrue(chessBoard.moveSet(ChessBoard.ROW._4, ChessBoard.COLUMN.B).isEmpty());
+    }
+
+    @Test
+    public void pawnCantJumpOverPiece() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), ChessBoard.ROW._2, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._3, ChessBoard.COLUMN.A);
+
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), ChessBoard.ROW._7, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.ROW._6, ChessBoard.COLUMN.A);
+
+        assertMoveSetIsEmpty(chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
+        assertMoveSetIsEmpty(chessBoard.moveSet(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
+    }
+
+    @Test
+    public void pawnCantCaptureForward() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), ChessBoard.ROW._2, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.ROW._3, ChessBoard.COLUMN.A);
+
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), ChessBoard.ROW._7, ChessBoard.COLUMN.A);
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._6, ChessBoard.COLUMN.A);
+
+        assertMoveSetIsEmpty(chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
+        assertMoveSetIsEmpty(chessBoard.moveSet(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
+    }
+
+    private void assertMoveSetIsEmpty(MoveSet moveSet) {
+        assertTrue("Expecting " + moveSet + " to be empty", moveSet.isEmpty());
     }
 }

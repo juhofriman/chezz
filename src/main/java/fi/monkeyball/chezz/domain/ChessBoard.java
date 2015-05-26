@@ -32,7 +32,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
             }
         }
 
-        public ROW east() {
+        public ROW south() {
             switch(this) {
                 case _2: return _1;
                 case _3: return _2;
