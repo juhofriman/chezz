@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
 
-    public static final Square OUT_OF_BOARD = new Square(null, null);
+    public static final Square OUT_OF_BOARD = new Square(null, null, null);
 
     public static enum ROW {
 
@@ -87,14 +87,14 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
     private ArrayList<RowContainer> rowContainers = new ArrayList<RowContainer>(8);
 
     public ChessBoard() {
-        rowContainers.add(new RowContainer(ROW._1));
-        rowContainers.add(new RowContainer(ROW._2));
-        rowContainers.add(new RowContainer(ROW._3));
-        rowContainers.add(new RowContainer(ROW._4));
-        rowContainers.add(new RowContainer(ROW._5));
-        rowContainers.add(new RowContainer(ROW._6));
-        rowContainers.add(new RowContainer(ROW._7));
-        rowContainers.add(new RowContainer(ROW._8));
+        rowContainers.add(new RowContainer(this, ROW._1));
+        rowContainers.add(new RowContainer(this, ROW._2));
+        rowContainers.add(new RowContainer(this, ROW._3));
+        rowContainers.add(new RowContainer(this, ROW._4));
+        rowContainers.add(new RowContainer(this, ROW._5));
+        rowContainers.add(new RowContainer(this, ROW._6));
+        rowContainers.add(new RowContainer(this, ROW._7));
+        rowContainers.add(new RowContainer(this, ROW._8));
     }
 
     @Override
@@ -103,6 +103,8 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
     }
 
     public void move(Square from, Square to) {
+        assertSquareBelongsToThisChessBoard(from);
+        assertSquareBelongsToThisChessBoard(to);
         if(from.isEmpty()) {
             throw new ChessBoardException("Can't move " + from + " because it's empty");
         }
@@ -121,6 +123,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
      * @return
      */
     public MoveSet moveSet(Square square) {
+        assertSquareBelongsToThisChessBoard(square);
         if(square.isEmpty()) {
             return MoveSet.EMPTY;
         }
@@ -159,7 +162,14 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
      * @param square
      */
     public void placePiece(Piece piece, Square square) {
+        assertSquareBelongsToThisChessBoard(square);
         square.setPiece(piece);
+    }
+
+    private void assertSquareBelongsToThisChessBoard(Square square) {
+        if(square.parent != this) {
+            throw new IllegalSquareReferenceException("Accessing Square of parent " + square.parent + " from chessboard " + this);
+        }
     }
 
     public static class RowContainer implements Iterable<Square> {
@@ -167,17 +177,17 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         private final ROW row;
         private ArrayList<Square> squares = new ArrayList<Square>(8);
 
-        private RowContainer(ROW row) {
+        private RowContainer(ChessBoard parent, ROW row) {
             this.row = row;
-            squares.add(new Square(row, COLUMN.A));
-            squares.add(new Square(row, COLUMN.B));
-            squares.add(new Square(row, COLUMN.C));
-            squares.add(new Square(row, COLUMN.D));
+            squares.add(new Square(parent, row, COLUMN.A));
+            squares.add(new Square(parent, row, COLUMN.B));
+            squares.add(new Square(parent, row, COLUMN.C));
+            squares.add(new Square(parent, row, COLUMN.D));
 
-            squares.add(new Square(row, COLUMN.E));
-            squares.add(new Square(row, COLUMN.F));
-            squares.add(new Square(row, COLUMN.G));
-            squares.add(new Square(row, COLUMN.H));
+            squares.add(new Square(parent, row, COLUMN.E));
+            squares.add(new Square(parent, row, COLUMN.F));
+            squares.add(new Square(parent, row, COLUMN.G));
+            squares.add(new Square(parent, row, COLUMN.H));
         }
 
         public ROW getRow() {
@@ -194,10 +204,12 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
 
         private final ROW row;
         private final COLUMN column;
+        private final ChessBoard parent;
 
         private Piece piece = null;
 
-        private Square(ROW row, COLUMN column) {
+        private Square(ChessBoard parent, ROW row, COLUMN column) {
+            this.parent = parent;
             this.row = row;
             this.column = column;
         }

@@ -118,5 +118,34 @@ public class ChessBoardTest {
                 chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._4));
     }
 
+    @Test(expected = IllegalSquareReferenceException.class)
+    public void throwsIfAccessingSquareFromAnotherChessBoardSquareAt() {
+        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        chessBoard2.moveSet(chessBoard1.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._4));
+    }
 
+    @Test(expected = IllegalSquareReferenceException.class)
+    public void throwsIfAccessingSquareFromAnotherChessBoardPlacePiece() {
+        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        chessBoard2.placePiece(new Pawn(Piece.Color.WHITE),
+                chessBoard1.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._4));
+    }
+
+    @Test(expected = IllegalSquareReferenceException.class)
+    public void throwsIfAccessingSquareFromAnotherChessBoardMoveFromWrong() {
+        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        chessBoard2.move(chessBoard1.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessBoard2.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+    }
+
+    @Test(expected = IllegalSquareReferenceException.class)
+    public void throwsIfAccessingSquareFromAnotherChessBoardMoveToWrong() {
+        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        chessBoard2.move(chessBoard2.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessBoard1.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+    }
 }
