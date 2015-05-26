@@ -88,8 +88,8 @@ public class RookTest extends PieceTests {
     public void testRookCantPassPiece() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._1));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._1));
 
         MoveSet rookMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 

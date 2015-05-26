@@ -73,10 +73,6 @@ public class ChessBoardFactoryTest {
 
     }
 
-    private void assertNotEmptyAndIsCorrectColor(ChessBoard chessBoard, ChessBoard.ROW row, ChessBoard.COLUMN column, Piece.Color color) {
-        assertNotEmptyAndIsCorrectColor(chessBoard, row, column, color, Rock.class);
-    }
-
     private void assertNotEmptyAndIsCorrectColor(ChessBoard chessBoard, ChessBoard.ROW row, ChessBoard.COLUMN column, Piece.Color color, Class<? extends Piece> pieceClass) {
         assertEquals(color, chessBoard.squareAt(row, column).getPiece().getColor());
         assertEquals("Unexpected piece at " + column + " " + row, pieceClass, chessBoard.squareAt(row, column).getPiece().getClass());

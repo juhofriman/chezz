@@ -54,7 +54,7 @@ public class KingTest extends PieceTests {
     public void testRemovesFriendlySquares() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.B));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.B));
 
         MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
 

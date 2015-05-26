@@ -68,8 +68,8 @@ public class PawnTest extends PieceTests {
     public void whitePawnCapturesSideWaysToNorth() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.C));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.C));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
         assertDoesNotContainFriendlies(pawnMoveSet, Piece.Color.WHITE);
@@ -86,8 +86,8 @@ public class PawnTest extends PieceTests {
     public void blackPawnCapturesSideWaysToEast() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.C));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.C));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
         assertDoesNotContainFriendlies(pawnMoveSet, Piece.Color.BLACK);
@@ -104,7 +104,7 @@ public class PawnTest extends PieceTests {
     public void pawnDoesNotAttackFriendly() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.B));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.B));
 
         assertTrue(chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B)).isEmpty());
     }
@@ -113,10 +113,10 @@ public class PawnTest extends PieceTests {
     public void pawnCantJumpOverPiece() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
 
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._6, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._6, ChessBoard.COLUMN.A));
 
         assertMoveSetIsEmpty(chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A)));
         assertMoveSetIsEmpty(chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A)));
@@ -126,10 +126,10 @@ public class PawnTest extends PieceTests {
     public void pawnCantCaptureForward() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
 
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._6, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._6, ChessBoard.COLUMN.A));
 
         assertMoveSetIsEmpty(chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A)));
         assertMoveSetIsEmpty(chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A)));
