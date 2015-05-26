@@ -23,18 +23,22 @@ public class Cli {
 
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE),chessBoard.squareAt( ChessBoard.COLUMN.C, ChessBoard.ROW._1));
-        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
+        chessBoard.placePiece(new Knight(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._1));
+        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._3));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.E, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.G, ChessBoard.ROW._2));
+        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._2));
+        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.D));
         System.out.println(possibleMoves);
 
         System.out.println("Before move");
         print(chessBoard, possibleMoves);
-        chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
 
-        System.out.println("After move");
-        print(chessBoard);
     }
 
     private static void print(ChessBoard chessBoard) {
@@ -49,10 +53,10 @@ public class Cli {
             String row = "" + c;
             for (ChessBoard.Square square : squares) {
                 if(possibleMoves.contains(square)) {
-                    row += square.isEmpty() ? "'" :
+                    row += square.isEmpty() ? "*" :
                             getPieceChar(square, true);
                 } else {
-                    row += square.isEmpty() ? " " :
+                    row += square.isEmpty() ? "-" :
                             getPieceChar(square, false);
                 }
             }
@@ -77,6 +81,9 @@ public class Cli {
         }
         if(square.getPiece() instanceof King) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("k", capturable) : green("k", capturable);
+        }
+        if(square.getPiece() instanceof Knight) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("h", capturable) : green("h", capturable);
         }
         if(square.getPiece() instanceof Pawn) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("p", capturable) : green("p", capturable);

@@ -11,6 +11,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
 
     public static enum ROW {
 
+        OUT(-1),
         _1(0), _2(1), _3(2), _4(3), _5(4), _6(5), _7(6), _8(7);
 
         private int index;
@@ -28,7 +29,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 case _5: return _6;
                 case _6: return _7;
                 case _7: return _8;
-                default: return null;
+                default: return OUT;
             }
         }
 
@@ -41,13 +42,14 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 case _6: return _5;
                 case _7: return _6;
                 case _8: return _7;
-                default: return null;
+                default: return OUT;
             }
         }
 
     }
     public static enum COLUMN {
 
+        OUT(-1),
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
         private int index;
 
@@ -64,7 +66,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 case E: return F;
                 case F: return G;
                 case G: return H;
-                default: return null;
+                default: return OUT;
             }
         }
 
@@ -77,7 +79,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
                 case F: return E;
                 case G: return F;
                 case H: return G;
-                default: return null;
+                default: return OUT;
             }
         }
 
@@ -144,7 +146,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
      * @return
      */
     public Square squareAt(ROW row, COLUMN column) {
-        if(row == null || column == null) {
+        if(row == ROW.OUT || column == COLUMN.OUT) {
             return  OUT_OF_BOARD;
         }
         return this.rowContainers.get(row.index).squares.get(column.index);
