@@ -23,8 +23,8 @@ public class Cli {
 
     public static void main(String[] args) {
         ChessBoard chessBoard = ChessBoardFactory.gameStart();
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.COLUMN.D, ChessBoard.ROW._3);
-        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.C);
+        chessBoard.placePiece(new Rook(Piece.Color.BLACK), ChessBoard.COLUMN.D, ChessBoard.ROW._5);
+        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._5, ChessBoard.COLUMN.D);
         System.out.println(possibleMoves);
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();
@@ -56,6 +56,9 @@ public class Cli {
     }
 
     private static String getPieceChar(ChessBoard.Square square, boolean capturable) {
+        if(square.getPiece() instanceof Rook) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("r", capturable) : green("r", capturable);
+        }
         if(square.getPiece() instanceof King) {
             return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("k", capturable) : green("k", capturable);
         }
