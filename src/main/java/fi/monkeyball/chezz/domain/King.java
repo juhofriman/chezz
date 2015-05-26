@@ -1,8 +1,5 @@
 package fi.monkeyball.chezz.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by juho on 5/24/15.
  */
@@ -25,9 +22,4 @@ public class King extends Piece {
 
     }
 
-    private void addIfOnBoard(HashSet<ChessBoard.Square> squares, ChessBoard.Square square) {
-        if(square != null) {
-            squares.add(square);
-        }
-    }
 }

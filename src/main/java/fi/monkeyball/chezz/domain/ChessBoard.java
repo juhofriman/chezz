@@ -7,6 +7,8 @@ import java.util.*;
  */
 public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
 
+    public static final Square OUT_OF_BOARD = new Square(null, null);
+
     public static enum ROW {
 
         _1(0), _2(1), _3(2), _4(3), _5(4), _6(5), _7(6), _8(7);
@@ -115,7 +117,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
     }
     public Square squareAt(ROW row, COLUMN column) {
         if(row == null || column == null) {
-            return null;
+            return  OUT_OF_BOARD;
         }
         return this.rowContainers.get(row.index).squares.get(column.index);
     }

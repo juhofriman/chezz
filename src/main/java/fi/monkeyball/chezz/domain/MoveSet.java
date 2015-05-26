@@ -20,7 +20,7 @@ public class MoveSet extends HashSet<ChessBoard.Square> {
     }
 
     public void addIfOnBoard(ChessBoard.Square square) {
-        if(square != null) {
+        if(square != ChessBoard.OUT_OF_BOARD) {
             if(square.isEmpty()) {
                 super.add(square);
             } else if(!square.getPiece().getColor().equals(this.piece.getColor())) {
