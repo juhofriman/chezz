@@ -22,9 +22,7 @@ public class Cli {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Queen(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._4));
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._3));
+        ChessBoard chessBoard = ChessBoardFactory.gameStart();
         MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.D));
         System.out.println(possibleMoves);
 
