@@ -19,13 +19,15 @@ public class MoveSet extends HashSet<ChessBoard.Square> {
         return super.add(square);
     }
 
-    public void addIfOnBoard(ChessBoard.Square square) {
+    public boolean addIfOnBoard(ChessBoard.Square square) {
         if(square != ChessBoard.OUT_OF_BOARD) {
             if(square.isEmpty()) {
                 super.add(square);
             } else if(!square.getPiece().isFriendly(this.piece)) {
                 super.add(square);
             }
+            return !square.isEmpty();
         }
+        return true;
     }
 }

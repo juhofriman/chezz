@@ -15,7 +15,7 @@ public class RookTest extends PieceTests {
     @Test
     public void testRookMovesFromCorner() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE),  ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
 
         MoveSet rookMoveSet = chessBoard.moveSet(ChessBoard.COLUMN.A, ChessBoard.ROW._1);
         containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
@@ -39,7 +39,7 @@ public class RookTest extends PieceTests {
     @Test
     public void testRookMovesFromAnotherCorner() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE),  ChessBoard.COLUMN.H, ChessBoard.ROW._8);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.H, ChessBoard.ROW._8);
 
         MoveSet rookMoveSet = chessBoard.moveSet(ChessBoard.COLUMN.H, ChessBoard.ROW._8);
         containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._1));
@@ -63,7 +63,7 @@ public class RookTest extends PieceTests {
     @Test
     public void testRookMovesFromCenter() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Rook(Piece.Color.WHITE),  ChessBoard.COLUMN.B, ChessBoard.ROW._4);
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.B, ChessBoard.ROW._4);
 
         MoveSet rookMoveSet = chessBoard.moveSet(ChessBoard.COLUMN.B, ChessBoard.ROW._4);
 
@@ -84,4 +84,31 @@ public class RookTest extends PieceTests {
         containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._4));
     }
 
+    @Test
+    public void testRookCantPassPiece() {
+        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        chessBoard.placePiece(new Rook(Piece.Color.WHITE), ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.COLUMN.A, ChessBoard.ROW._5);
+        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.COLUMN.C, ChessBoard.ROW._1);
+
+        MoveSet rookMoveSet = chessBoard.moveSet(ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+
+        containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+        containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._3));
+        containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._4));
+        containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._6));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._7));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._8));
+
+        containsSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.E, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.G, ChessBoard.ROW._1));
+        doesNotContainSquare(rookMoveSet, chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._1));
+
+        // TODO: you should assert this south and west as well
+    }
 }
