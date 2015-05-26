@@ -1,16 +1,9 @@
 package fi.monkeyball.chezz.domain;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
-
-import java.util.Collections;
-import java.util.Set;
-
 public abstract class Piece {
 
     public enum Color {
-        WHITE, BLACK
+        WHITE, BLACK;
     }
 
     private Color color;
@@ -29,5 +22,9 @@ public abstract class Piece {
 
     public Color getColor() {
         return color;
+    }
+
+    public boolean isFriendly(Piece another) {
+        return getColor().equals(another.getColor());
     }
 }

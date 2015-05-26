@@ -23,7 +23,6 @@ public abstract class PieceTests {
 
     protected abstract String getActor();
 
-
     protected void assertDoesNotContainFriendlies(Set<ChessBoard.Square> kingMoveSet, Piece.Color friendly) {
         for (ChessBoard.Square square : kingMoveSet) {
             if(!square.isEmpty() && square.getPiece().getColor().equals(friendly)) {
@@ -42,4 +41,5 @@ public abstract class PieceTests {
         assertFalse("Moveset for '" + actor + "' " + moveSet + " did contain unexpected square " + square,
                 moveSet.contains(square));
     }
+
 }
