@@ -22,14 +22,10 @@ public class Cli {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        chessBoard.placePiece(new Pawn(Piece.Color.WHITE), ChessBoard.ROW._2, ChessBoard.COLUMN.A);
-        chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.ROW._3, ChessBoard.COLUMN.A);
-
-        chessBoard.placePiece(new Pawn(Piece.Color.BLACK), ChessBoard.ROW._7, ChessBoard.COLUMN.A);
-        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.ROW._6, ChessBoard.COLUMN.A);
-        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.A);
-
+        ChessBoard chessBoard = ChessBoardFactory.gameStart();
+        chessBoard.placePiece(new Rock(Piece.Color.BLACK), ChessBoard.COLUMN.D, ChessBoard.ROW._3);
+        MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._2, ChessBoard.COLUMN.C);
+        System.out.println(possibleMoves);
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();
         int c = 1;
@@ -38,10 +34,10 @@ public class Cli {
             for (ChessBoard.Square square : squares) {
                 if(possibleMoves.contains(square)) {
                     row += square.isEmpty() ? "'" :
-                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("W") : green("B");
+                            getPieceChar(square, true);
                 } else {
                     row += square.isEmpty() ? " " :
-                            square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("w") : green("b");
+                            getPieceChar(square, false);
                 }
             }
             row += c++;
@@ -55,18 +51,34 @@ public class Cli {
         System.out.println(" abcdefgh ");
         System.out.println("");
         System.out.println("' can move here");
-        System.out.println("w contains white piece");
-        System.out.println("b contains black piece");
-        System.out.println("W contains white piece for capturing");
-        System.out.println("B contains black piece for capturing");
+        System.out.println("u placeholder piece");
+        System.out.println("UPPERCASE capturable");
     }
 
-    private static String green(String character) {
-        return ANSI_GREEN + character + ANSI_RESET;
+    private static String getPieceChar(ChessBoard.Square square, boolean capturable) {
+        if(square.getPiece() instanceof King) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("k", capturable) : green("k", capturable);
+        }
+        if(square.getPiece() instanceof Pawn) {
+            return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("p", capturable) : green("p", capturable);
+        }
+        return square.getPiece().getColor().equals(Piece.Color.WHITE) ? red("u", capturable) : green("u", capturable);
     }
 
-    private static String red(String character) {
-        return ANSI_RED + character + ANSI_RESET;
+    private static String green(String character, boolean capturable) {
+        if(capturable) {
+            return ANSI_GREEN + character.toUpperCase() + ANSI_RESET;
+        } else {
+            return ANSI_GREEN + character + ANSI_RESET;
+        }
+    }
+
+    private static String red(String character, boolean capturable) {
+        if(capturable) {
+            return ANSI_RED + character.toUpperCase() + ANSI_RESET;
+        } else {
+            return ANSI_RED + character + ANSI_RESET;
+        }
     }
 
 }
