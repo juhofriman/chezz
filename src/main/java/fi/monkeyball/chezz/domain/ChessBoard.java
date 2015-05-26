@@ -95,11 +95,11 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         rowContainers.add(new RowContainer(ROW._8));
     }
 
-
     @Override
     public Iterator<RowContainer> iterator() {
         return rowContainers.iterator();
     }
+
     public MoveSet moveSet(COLUMN column, ROW row) {
         return this.moveSet(row, column);
     }
@@ -115,6 +115,7 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
     public Square squareAt(COLUMN column, ROW row) {
         return this.squareAt(row, column);
     }
+
     public Square squareAt(ROW row, COLUMN column) {
         if(row == null || column == null) {
             return  OUT_OF_BOARD;

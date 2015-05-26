@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by juho on 5/24/15.
@@ -74,6 +75,12 @@ public class ChessBoardTest {
     @Test
     public void whenLegalMovesSetIsRequestedEmptySquareMustReturnEmptySet() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        assertTrue(chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A).isEmpty());
+        for (ChessBoard.RowContainer squares : chessBoard) {
+            for (ChessBoard.Square square : squares) {
+                // TODO: this could return Empty Piece which does not move and is friendly to everyone
+                assertNull(chessBoard.squareAt(square.getColumn(), square.getRow()).getPiece());
+                assertTrue(chessBoard.moveSet(square.getColumn(), square.getRow()).isEmpty());
+            }
+        }
     }
 }

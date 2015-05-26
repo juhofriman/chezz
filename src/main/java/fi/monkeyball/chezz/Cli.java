@@ -28,6 +28,11 @@ public class Cli {
         chessBoard.placePiece(new Rock(Piece.Color.WHITE), ChessBoard.COLUMN.C, ChessBoard.ROW._1);
         MoveSet possibleMoves = chessBoard.moveSet(ChessBoard.ROW._1, ChessBoard.COLUMN.A);
         System.out.println(possibleMoves);
+
+        print(chessBoard, possibleMoves);
+    }
+
+    private static void print(ChessBoard chessBoard, MoveSet possibleMoves) {
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();
         int c = 1;
