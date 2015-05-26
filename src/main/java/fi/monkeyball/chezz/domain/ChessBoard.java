@@ -202,26 +202,6 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
             this.column = column;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Square square = (Square) o;
-
-            if (column != square.column) return false;
-            if (row != square.row) return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = row.hashCode();
-            result = 31 * result + column.hashCode();
-            return result;
-        }
-
         public boolean isEmpty() {
             return this.piece == null;
         }
