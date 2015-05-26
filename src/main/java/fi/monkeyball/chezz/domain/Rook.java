@@ -10,32 +10,7 @@ public class Rook extends Piece {
 
     @Override
     protected void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location) {
-        ChessBoard.ROW row = location.getRow();
-        boolean blocks = false;
-        while(!blocks) {
-            blocks = moveSet.addIfOnBoard(chessBoard.squareAt(row.north(), location.getColumn()));
-            row = row.north();
-        }
-
-        row = location.getRow();
-        blocks = false;
-        while(!blocks) {
-            blocks = moveSet.addIfOnBoard(chessBoard.squareAt(row.south(), location.getColumn()));
-            row = row.south();
-        }
-
-        ChessBoard.COLUMN column = location.getColumn();
-        blocks = false;
-        while(!blocks) {
-            blocks = moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow(), column.east()));
-            column = column.east();
-        }
-
-        column = location.getColumn();
-        blocks = false;
-        while(!blocks) {
-            blocks = moveSet.addIfOnBoard(chessBoard.squareAt(location.getRow(), column.west()));
-            column = column.west();
-        }
+        registerRookMoves(moveSet, chessBoard, location);
     }
+
 }
