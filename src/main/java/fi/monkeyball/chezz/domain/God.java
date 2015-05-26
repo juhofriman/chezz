@@ -1,8 +1,5 @@
 package fi.monkeyball.chezz.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by juho on 5/24/15.
  */
@@ -14,8 +11,8 @@ public class God extends Piece {
 
     @Override
     protected void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location) {
-        for (ChessBoard.Row row : chessBoard) {
-            for (ChessBoard.Square square : row) {
+        for (ChessBoard.RowContainer rowContainer : chessBoard) {
+            for (ChessBoard.Square square : rowContainer) {
                 if(square != location) {
                     moveSet.addIfOnBoard(square);
                 }

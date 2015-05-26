@@ -5,9 +5,9 @@ import java.util.*;
 /**
  * Created by juho on 5/24/15.
  */
-public class ChessBoard implements Iterable<ChessBoard.Row> {
+public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
 
-    public enum ROW {
+    public static enum ROW {
 
         _1(0), _2(1), _3(2), _4(3), _5(4), _6(5), _7(6), _8(7);
 
@@ -43,7 +43,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
             }
         }
     }
-    public enum COLUMN {
+    public static enum COLUMN {
 
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
 
@@ -80,23 +80,23 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
         }
     }
 
-    private ArrayList<Row> rows = new ArrayList<Row>(8);
+    private ArrayList<RowContainer> rowContainers = new ArrayList<RowContainer>(8);
 
     public ChessBoard() {
-        rows.add(new Row(ROW._1));
-        rows.add(new Row(ROW._2));
-        rows.add(new Row(ROW._3));
-        rows.add(new Row(ROW._4));
-        rows.add(new Row(ROW._5));
-        rows.add(new Row(ROW._6));
-        rows.add(new Row(ROW._7));
-        rows.add(new Row(ROW._8));
+        rowContainers.add(new RowContainer(ROW._1));
+        rowContainers.add(new RowContainer(ROW._2));
+        rowContainers.add(new RowContainer(ROW._3));
+        rowContainers.add(new RowContainer(ROW._4));
+        rowContainers.add(new RowContainer(ROW._5));
+        rowContainers.add(new RowContainer(ROW._6));
+        rowContainers.add(new RowContainer(ROW._7));
+        rowContainers.add(new RowContainer(ROW._8));
     }
 
 
     @Override
-    public Iterator<Row> iterator() {
-        return rows.iterator();
+    public Iterator<RowContainer> iterator() {
+        return rowContainers.iterator();
     }
     public MoveSet moveSet(COLUMN column, ROW row) {
         return this.moveSet(row, column);
@@ -117,7 +117,7 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
         if(row == null || column == null) {
             return null;
         }
-        return this.rows.get(row.index).squares.get(column.index);
+        return this.rowContainers.get(row.index).squares.get(column.index);
     }
 
     public void placePiece(Piece piece, COLUMN column, ROW row) {
@@ -128,13 +128,12 @@ public class ChessBoard implements Iterable<ChessBoard.Row> {
         squareAt(row, column).setPiece(piece);
     }
 
-    // This should not be "row" because enum is ROW already
-    public static class Row implements Iterable<Square> {
+    public static class RowContainer implements Iterable<Square> {
 
         private final ROW row;
         private ArrayList<Square> squares = new ArrayList<Square>(8);
 
-        private Row(ROW row) {
+        private RowContainer(ROW row) {
             this.row = row;
             squares.add(new Square(row, COLUMN.A));
             squares.add(new Square(row, COLUMN.B));

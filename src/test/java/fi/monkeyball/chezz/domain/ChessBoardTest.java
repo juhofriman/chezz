@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -18,10 +17,10 @@ public class ChessBoardTest {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
         int rows = 0;
         int squares = 0;
-        for(ChessBoard.Row row : chessBoard) {
+        for(ChessBoard.RowContainer rowContainer : chessBoard) {
             rows++;
             int columns = 0;
-            for(ChessBoard.Square square : row) {
+            for(ChessBoard.Square square : rowContainer) {
                 columns++;
                 squares++;
             }
@@ -35,8 +34,8 @@ public class ChessBoardTest {
     @Test
     public void useChessBoardFactoryForInitialChessBoards() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        for(ChessBoard.Row row : chessBoard) {
-            for(ChessBoard.Square square : row) {
+        for(ChessBoard.RowContainer rowContainer : chessBoard) {
+            for(ChessBoard.Square square : rowContainer) {
                 assertTrue(square.isEmpty());
             }
         }
@@ -45,7 +44,7 @@ public class ChessBoardTest {
     @Test
     public void coordinatesAreAsExpectedInChessBoard() {
         ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
-        Iterator<ChessBoard.Row> iterator = chessBoard.iterator();
+        Iterator<ChessBoard.RowContainer> iterator = chessBoard.iterator();
         checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._1);
         checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._2);
         checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._3);
@@ -57,10 +56,10 @@ public class ChessBoardTest {
 
     }
 
-    private void checkRowIsAsExpected(ChessBoard.Row row, ChessBoard.ROW expected) {
-        assertEquals(expected, row.getRow());
+    private void checkRowIsAsExpected(ChessBoard.RowContainer rowContainer, ChessBoard.ROW expected) {
+        assertEquals(expected, rowContainer.getRow());
 
-        Iterator<ChessBoard.Square> iterator = row.iterator();
+        Iterator<ChessBoard.Square> iterator = rowContainer.iterator();
         assertEquals(ChessBoard.COLUMN.A, iterator.next().getColumn());
         assertEquals(ChessBoard.COLUMN.B, iterator.next().getColumn());
         assertEquals(ChessBoard.COLUMN.C, iterator.next().getColumn());

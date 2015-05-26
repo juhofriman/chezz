@@ -5,7 +5,6 @@ import fi.monkeyball.chezz.domain.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by juho on 5/24/15.
@@ -21,7 +20,7 @@ public class Cli {
         System.out.println(" abcdefgh ");
         List<String> rows = new LinkedList();
         int c = 1;
-        for (ChessBoard.Row squares : chessBoard) {
+        for (ChessBoard.RowContainer squares : chessBoard) {
             String row = "" + c;
             for (ChessBoard.Square square : squares) {
                 if(possibleMoves.contains(square)) {
