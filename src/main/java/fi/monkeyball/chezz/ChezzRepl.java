@@ -60,6 +60,9 @@ public class ChezzRepl implements Runnable {
     }
 
     public static void main(String[] args) {
+        System.out.println("Welcome to chezz-repl");
+        System.out.println();
+
         new ChezzRepl().run();
     }
 
@@ -70,7 +73,9 @@ public class ChezzRepl implements Runnable {
         String input = System.console().readLine();
 
         try {
-            if (input.equals("help")) {
+            if(input.equals("")) {
+
+            } else if (input.equals("help")) {
                 printHelp();
             } else if (input.equals("state")) {
                 print(gameOfChess.board());
