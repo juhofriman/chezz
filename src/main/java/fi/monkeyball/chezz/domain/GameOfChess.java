@@ -11,12 +11,20 @@ public class GameOfChess {
     private final ChessBoard chessBoard;
 
     public GameOfChess() {
-        currentTurn = Piece.Color.WHITE;
-        chessBoard = ChessBoardFactory.emptyBoard();
+        this(ChessBoardFactory.gameStart());
+    }
+
+    public GameOfChess(ChessBoard chessBoard) {
+        this.currentTurn = Piece.Color.WHITE;
+        this.chessBoard = chessBoard;
     }
 
     public ChessBoard board() {
-        return new ChessBoard();
+        return this.chessBoard;
+    }
+
+    public Piece.Color onTurn() {
+        return this.currentTurn;
     }
 
     public Piece.Color nextMove() {
@@ -29,6 +37,22 @@ public class GameOfChess {
             Move move = moveHandler.handleState(this.chessBoard);
             if(move == Move.GIVEUP) {
                 chessEventHandler.onGiveup(currentTurn);
+            } else {
+                if(!move.from().getPiece().getColor().equals(currentTurn)) {
+                    throw new ChessBoardException("Can't move because not turn of " + move.from().getPiece().getColor());
+                }
+
+                if(move.to().isEmpty()) {
+                    chessBoard.move(move.from(), move.to());
+                    chessEventHandler.onMove(chessBoard.squareAt(move.to().getColumn(), move.to().getRow()).getPiece(),
+                            move);
+                } else {
+                    Piece captured = move.to().getPiece();
+                    Piece capturer = move.from().getPiece();
+
+                    chessBoard.move(move.from(), move.to());
+                    chessEventHandler.onCapture(capturer, captured, move);
+                }
             }
         }
         if(this.currentTurn == Piece.Color.WHITE) {
@@ -46,4 +70,6 @@ public class GameOfChess {
     public void addEventHandler(ChessEventHandler chessEventHandler) {
         this.chessEventHandler = chessEventHandler;
     }
+
+
 }

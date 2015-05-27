@@ -22,13 +22,23 @@ public class Cli {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
-        ChessBoard chessBoard = ChessBoardFactory.gameStart();
-        chessBoard.placePiece(new Queen(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._3));
-        MoveSet possibleMoves = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._3));
-        System.out.println(possibleMoves);
+        final GameOfChess chess = new GameOfChess(ChessBoardFactory.emptyBoard());
 
-        System.out.println("Before move");
-        print(chessBoard, possibleMoves);
+        chess.addMoveHandler(new MoveHandler() {
+            @Override
+            public Move handleState(ChessBoard chessBoard) {
+                return new Move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                        chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
+            }
+        });
+
+        chess.board().placePiece(new Rook(Piece.Color.WHITE), chess.board().squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
+
+
+        System.out.println("Possible moves for rook");
+        print(chess.board(), chess.board().moveSet(chess.board().squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1)));
+        chess.move();
+        print(chess.board());
 
     }
 
