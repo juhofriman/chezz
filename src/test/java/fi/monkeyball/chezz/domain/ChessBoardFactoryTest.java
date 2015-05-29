@@ -13,7 +13,7 @@ public class ChessBoardFactoryTest {
 
     @Test
     public void testEmptyGame() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
 
         assertRowIsEmpty(chessBoard, ChessBoard.ROW._1);
         assertRowIsEmpty(chessBoard, ChessBoard.ROW._2);
@@ -27,7 +27,7 @@ public class ChessBoardFactoryTest {
 
     @Test
     public void testGameStart() {
-        ChessBoard chessBoard = ChessBoardFactory.gameStart();
+        ChessBoard chessBoard = new StandardStartPositionChessboardFactory().instance();
 
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.A, Piece.Color.WHITE, Rook.class);
         assertNotEmptyAndIsCorrectColor(chessBoard, ChessBoard.ROW._1, ChessBoard.COLUMN.B, Piece.Color.WHITE, Knight.class);

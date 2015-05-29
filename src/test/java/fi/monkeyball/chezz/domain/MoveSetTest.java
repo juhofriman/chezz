@@ -14,7 +14,7 @@ public class MoveSetTest {
 
     @Test
     public void testContains() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
         MoveSet squares = new MoveSet(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).getPiece());
         squares.addIfOnBoard(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));

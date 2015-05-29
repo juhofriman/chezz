@@ -1,12 +1,8 @@
 package fi.monkeyball.chezz.domain.pieces;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.EmptyChessBoardFactory;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Created by juho on 5/24/15.
@@ -20,7 +16,7 @@ public class KingTest extends PieceTests {
 
     @Test
     public void testMovesWhenEverywhereIsFreedom() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
 
         MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
@@ -39,7 +35,7 @@ public class KingTest extends PieceTests {
 
     @Test
     public void testOnCorner() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
 
         MoveSet kingMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
@@ -52,7 +48,7 @@ public class KingTest extends PieceTests {
 
     @Test
     public void testRemovesFriendlySquares() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new King(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.A));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._1, ChessBoard.COLUMN.B));
 

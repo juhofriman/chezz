@@ -1,7 +1,7 @@
 package fi.monkeyball.chezz.domain.pieces;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.EmptyChessBoardFactory;
 import org.junit.Test;
 
 import java.util.Set;
@@ -20,7 +20,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void testWhitePawnStartMoves() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
@@ -32,7 +32,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void testWhitePawnMovesAfterStart() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.A));
@@ -44,7 +44,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void testBlackPawnStartMoves() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._7, ChessBoard.COLUMN.A));
@@ -56,7 +56,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void testBlackPawnMovesAfterStart() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.A));
 
         Set<ChessBoard.Square> pawnMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.A));
@@ -68,7 +68,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void whitePawnCapturesSideWaysToNorth() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.C));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.A));
@@ -86,7 +86,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void blackPawnCapturesSideWaysToEast() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.C));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
@@ -104,7 +104,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void pawnDoesNotAttackFriendly() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._4, ChessBoard.COLUMN.B));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._5, ChessBoard.COLUMN.B));
 
@@ -113,7 +113,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void pawnCantJumpOverPiece() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
 
@@ -126,7 +126,7 @@ public class PawnTest extends PieceTests {
 
     @Test
     public void pawnCantCaptureForward() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.ROW._2, ChessBoard.COLUMN.A));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.ROW._3, ChessBoard.COLUMN.A));
 

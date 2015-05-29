@@ -1,7 +1,7 @@
 package fi.monkeyball.chezz.domain.pieces;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.EmptyChessBoardFactory;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ public class KnightTest extends PieceTests {
 
     @Test
     public void knightCanJumpOver() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Knight(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.D, ChessBoard.ROW._1));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._2));

@@ -1,7 +1,7 @@
 package fi.monkeyball.chezz.domain.pieces;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.EmptyChessBoardFactory;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ public class RookTest extends PieceTests {
 
     @Test
     public void testRookMovesFromCorner() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 
         MoveSet rookMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
@@ -40,7 +40,7 @@ public class RookTest extends PieceTests {
 
     @Test
     public void testRookMovesFromAnotherCorner() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._8));
 
         MoveSet rookMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.COLUMN.H, ChessBoard.ROW._8));
@@ -64,7 +64,7 @@ public class RookTest extends PieceTests {
 
     @Test
     public void testRookMovesFromCenter() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._4));
 
         MoveSet rookMoveSet = chessBoard.moveSet(chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._4));
@@ -88,7 +88,7 @@ public class RookTest extends PieceTests {
 
     @Test
     public void testRookCantPassPiece() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
         chessBoard.placePiece(new Pawn(Piece.Color.BLACK), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5));
         chessBoard.placePiece(new Pawn(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.C, ChessBoard.ROW._1));

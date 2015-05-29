@@ -19,7 +19,7 @@ public class ChessBoardTest {
 
     @Test
     public void chessBoardCanBeIteratedAndSizeIs8x8() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         int rows = 0;
         int squares = 0;
         for(ChessBoard.RowContainer rowContainer : chessBoard) {
@@ -38,7 +38,7 @@ public class ChessBoardTest {
 
     @Test
     public void useChessBoardFactoryForInitialChessBoards() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         for(ChessBoard.RowContainer rowContainer : chessBoard) {
             for(ChessBoard.Square square : rowContainer) {
                 assertTrue(square.isEmpty());
@@ -48,7 +48,7 @@ public class ChessBoardTest {
 
     @Test
     public void coordinatesAreAsExpectedInChessBoard() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         Iterator<ChessBoard.RowContainer> iterator = chessBoard.iterator();
         checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._1);
         checkRowIsAsExpected(iterator.next(), ChessBoard.ROW._2);
@@ -78,7 +78,7 @@ public class ChessBoardTest {
 
     @Test
     public void whenLegalMovesSetIsRequestedEmptySquareMustReturnEmptySet() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         for (ChessBoard.RowContainer squares : chessBoard) {
             for (ChessBoard.Square square : squares) {
                 // TODO: this could return Empty Piece which does not move and is friendly to everyone
@@ -90,7 +90,7 @@ public class ChessBoardTest {
 
     @Test
     public void piecesCanMove() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 
         chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
@@ -104,7 +104,7 @@ public class ChessBoardTest {
 
     @Test(expected = ChessBoardException.class)
     public void pieceCantMoveIfNotInMoveSet() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
         chessBoard.placePiece(new Rook(Piece.Color.WHITE), chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
 
         // This is not how Rook moves
@@ -114,7 +114,7 @@ public class ChessBoardTest {
 
     @Test(expected = ChessBoardException.class)
     public void cantMoveEmptySquare() {
-        ChessBoard chessBoard = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard = new EmptyChessBoardFactory().instance();
 
         // It's empty board
         chessBoard.move(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
@@ -123,31 +123,31 @@ public class ChessBoardTest {
 
     @Test(expected = IllegalSquareReferenceException.class)
     public void throwsIfAccessingSquareFromAnotherChessBoardSquareAt() {
-        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
-        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard1 = new EmptyChessBoardFactory().instance();
+        ChessBoard chessBoard2 = new EmptyChessBoardFactory().instance();
         chessBoard2.moveSet(chessBoard1.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._4));
     }
 
     @Test(expected = IllegalSquareReferenceException.class)
     public void throwsIfAccessingSquareFromAnotherChessBoardPlacePiece() {
-        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
-        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard1 = new EmptyChessBoardFactory().instance();
+        ChessBoard chessBoard2 = new EmptyChessBoardFactory().instance();
         chessBoard2.placePiece(new Pawn(Piece.Color.WHITE),
                 chessBoard1.squareAt(ChessBoard.COLUMN.F, ChessBoard.ROW._4));
     }
 
     @Test(expected = IllegalSquareReferenceException.class)
     public void throwsIfAccessingSquareFromAnotherChessBoardMoveFromWrong() {
-        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
-        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard1 = new EmptyChessBoardFactory().instance();
+        ChessBoard chessBoard2 = new EmptyChessBoardFactory().instance();
         chessBoard2.move(chessBoard1.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
                 chessBoard2.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
     }
 
     @Test(expected = IllegalSquareReferenceException.class)
     public void throwsIfAccessingSquareFromAnotherChessBoardMoveToWrong() {
-        ChessBoard chessBoard1 = ChessBoardFactory.emptyBoard();
-        ChessBoard chessBoard2 = ChessBoardFactory.emptyBoard();
+        ChessBoard chessBoard1 = new EmptyChessBoardFactory().instance();
+        ChessBoard chessBoard2 = new EmptyChessBoardFactory().instance();
         chessBoard2.move(chessBoard2.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
                 chessBoard1.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
     }
