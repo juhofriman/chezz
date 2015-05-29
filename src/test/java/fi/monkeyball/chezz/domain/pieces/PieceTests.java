@@ -1,5 +1,7 @@
-package fi.monkeyball.chezz.domain;
+package fi.monkeyball.chezz.domain.pieces;
 
+import fi.monkeyball.chezz.domain.ChessBoard;
+import fi.monkeyball.chezz.domain.pieces.Piece;
 import org.junit.Before;
 
 import java.util.Set;

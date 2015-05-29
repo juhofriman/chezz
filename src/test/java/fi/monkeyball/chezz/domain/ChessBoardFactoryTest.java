@@ -1,5 +1,6 @@
 package fi.monkeyball.chezz.domain;
 
+import fi.monkeyball.chezz.domain.pieces.*;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

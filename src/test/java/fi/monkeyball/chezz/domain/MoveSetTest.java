@@ -1,5 +1,8 @@
 package fi.monkeyball.chezz.domain;
 
+import fi.monkeyball.chezz.domain.pieces.MoveSet;
+import fi.monkeyball.chezz.domain.pieces.Pawn;
+import fi.monkeyball.chezz.domain.pieces.Piece;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

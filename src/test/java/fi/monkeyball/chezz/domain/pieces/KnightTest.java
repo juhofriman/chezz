@@ -1,5 +1,7 @@
-package fi.monkeyball.chezz.domain;
+package fi.monkeyball.chezz.domain.pieces;
 
+import fi.monkeyball.chezz.domain.ChessBoard;
+import fi.monkeyball.chezz.domain.ChessBoardFactory;
 import org.junit.Test;
 
 /**

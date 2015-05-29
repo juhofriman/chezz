@@ -1,6 +1,7 @@
 package fi.monkeyball.chezz;
 
 import fi.monkeyball.chezz.domain.*;
+import fi.monkeyball.chezz.domain.pieces.*;
 
 import java.util.Collections;
 import java.util.LinkedList;

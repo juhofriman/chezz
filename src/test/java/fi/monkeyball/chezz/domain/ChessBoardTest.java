@@ -1,5 +1,8 @@
 package fi.monkeyball.chezz.domain;
 
+import fi.monkeyball.chezz.domain.pieces.Pawn;
+import fi.monkeyball.chezz.domain.pieces.Piece;
+import fi.monkeyball.chezz.domain.pieces.Rook;
 import org.junit.Test;
 
 import java.util.Iterator;

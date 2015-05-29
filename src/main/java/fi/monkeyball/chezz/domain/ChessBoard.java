@@ -1,5 +1,8 @@
 package fi.monkeyball.chezz.domain;
 
+import fi.monkeyball.chezz.domain.pieces.MoveSet;
+import fi.monkeyball.chezz.domain.pieces.Piece;
+
 import java.util.*;
 
 /**

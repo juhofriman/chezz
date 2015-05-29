@@ -1,4 +1,6 @@
-package fi.monkeyball.chezz.domain;
+package fi.monkeyball.chezz.domain.pieces;
+
+import fi.monkeyball.chezz.domain.ChessBoard;
 
 /**
  * Created by juho on 5/25/15.

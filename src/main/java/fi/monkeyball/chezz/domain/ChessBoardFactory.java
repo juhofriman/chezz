@@ -1,5 +1,7 @@
 package fi.monkeyball.chezz.domain;
 
+import fi.monkeyball.chezz.domain.pieces.*;
+
 /**
  * Created by juho on 5/24/15.
  */
