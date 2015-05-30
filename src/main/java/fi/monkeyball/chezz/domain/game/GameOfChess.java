@@ -2,6 +2,7 @@ package fi.monkeyball.chezz.domain.game;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
 import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.pieces.King;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 
 /**
@@ -36,6 +37,12 @@ public class GameOfChess {
         Move move = moveGenerator.getMove(chessGameState.getCurrentTurn(), this.board);
         move.accept(this.chessRules);
         chessGameState.switchTurn();
+        if(chessGameState.isCheck(this.board)) {
+            this.chessEventListener.onCheck(board.getPieces(King.class, chessGameState.getCurrentTurn()).iterator().next());
+            if(chessGameState.isCheckMate(this.board)) {
+                this.chessEventListener.onCheckMate(board.getPieces(King.class, chessGameState.getCurrentTurn()).iterator().next());
+            }
+        }
     }
 
     public ChessGameState getState() {

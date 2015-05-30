@@ -7,10 +7,12 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
+import static junit.framework.Assert.assertNotSame;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by juho on 5/24/15.
@@ -150,5 +152,27 @@ public class ChessBoardTest {
         ChessBoard chessBoard2 = new EmptyChessBoardFactory().instance();
         chessBoard2.move(chessBoard2.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
                 chessBoard1.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+    }
+
+    @Test
+    public void testFutureCopy() {
+        ChessBoard chessboard = new ChessBoardBuilder()
+                .place(Piece.Color.WHITE, Pawn.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1)
+                .build();
+
+        ChessBoard future = chessboard.future(chessboard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                chessboard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2));
+
+        assertNotNull(future);
+        assertNotSame(chessboard, future);
+        assertTrue("Future copy was not mutated", future.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).isEmpty());
+        assertFalse("Future copy was not mutated", future.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2).isEmpty());
+
+        assertFalse("Original was not mutated", chessboard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).isEmpty());
+        assertTrue("Original copy was not mutated", chessboard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2).isEmpty());
+
+        assertNotSame("Future copy contained reference to original chessboard piece",
+                future.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2).getPiece(),
+                chessboard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).getPiece());
     }
 }

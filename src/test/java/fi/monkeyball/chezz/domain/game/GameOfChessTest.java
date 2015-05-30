@@ -1,6 +1,7 @@
 package fi.monkeyball.chezz.domain.game;
 
 import fi.monkeyball.chezz.domain.*;
+import fi.monkeyball.chezz.domain.pieces.Bishop;
 import fi.monkeyball.chezz.domain.pieces.King;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 import fi.monkeyball.chezz.domain.pieces.Rook;
@@ -162,12 +163,60 @@ public class GameOfChessTest {
         assertTrue("Expecting onCapture called but it was not", onCaptureCalled.get());
     }
 
+    @Test
+    public void testOnCheckEventIsInvokedWhenTurnIsChangedToChessPosition() {
+        GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
+            place(Piece.Color.WHITE, Rook.class, ChessBoard.COLUMN.A, ChessBoard.ROW._2);
+            place(Piece.Color.BLACK, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._8);
+        }}.build(), Piece.Color.WHITE);
+        gameOfChess.setChessEventListener(this.callCountRegisteringEventListener);
+
+        gameOfChess.setMoveGenerator(new MoveGenerator() {
+            @Override
+            public Move getMove(Piece.Color turn, ChessBoard chessBoard) {
+                return new StandardMove(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._2),
+                        chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
+            }
+        });
+
+        gameOfChess.turn();
+        assertEquals(1, this.callCountRegisteringEventListener.onMoveCalled);
+        assertEquals(1, this.callCountRegisteringEventListener.onCheckCalled);
+    }
+
+    @Test
+    public void testOnCheckMateEventIsFired() {
+        GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
+            place(Piece.Color.WHITE, Rook.class, ChessBoard.COLUMN.A, ChessBoard.ROW._8);
+            place(Piece.Color.WHITE, Rook.class, ChessBoard.COLUMN.G, ChessBoard.ROW._2);
+            place(Piece.Color.WHITE, Bishop.class, ChessBoard.COLUMN.H, ChessBoard.ROW._8);
+            place(Piece.Color.BLACK, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        }}.build(), Piece.Color.WHITE);
+        gameOfChess.setChessEventListener(this.callCountRegisteringEventListener);
+
+        gameOfChess.setMoveGenerator(new MoveGenerator() {
+            @Override
+            public Move getMove(Piece.Color turn, ChessBoard chessBoard) {
+                return new StandardMove(chessBoard.squareAt(ChessBoard.COLUMN.G, ChessBoard.ROW._2),
+                        chessBoard.squareAt(ChessBoard.COLUMN.G, ChessBoard.ROW._1));
+            }
+        });
+
+        gameOfChess.turn();
+        assertEquals(1, this.callCountRegisteringEventListener.onMoveCalled);
+        assertEquals(1, this.callCountRegisteringEventListener.onCheckCalled);
+        assertEquals(1, this.callCountRegisteringEventListener.onCheckMateCalled);
+    }
+
+
 
     public static class CallCountRegisteringEventListener implements ChessEventListener {
 
         private int giveUpCalled = 0;
         private int onMoveCalled = 0;
         private int onCaptureCalled = 0;
+        private int onCheckCalled = 0;
+        private int onCheckMateCalled = 0;
 
         @Override
         public void onGiveup(Giveup giveup, ChessGameState gameState) {
@@ -182,6 +231,16 @@ public class GameOfChessTest {
         @Override
         public void onCapture(Piece capturer, Piece capturee, StandardMove move, ChessGameState gameState) {
             this.onCaptureCalled++;
+        }
+
+        @Override
+        public void onCheck(ChessBoard.Square kingOnCheck) {
+            this.onCheckCalled++;
+        }
+
+        @Override
+        public void onCheckMate(ChessBoard.Square kingOnCheckMate) {
+            this.onCheckMateCalled++;
         }
     }
 }

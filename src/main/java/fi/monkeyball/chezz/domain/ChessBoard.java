@@ -3,7 +3,10 @@ package fi.monkeyball.chezz.domain;
 import fi.monkeyball.chezz.domain.pieces.MoveSet;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by juho on 5/24/15.
@@ -50,12 +53,12 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         }
 
     }
+
     public static enum COLUMN {
 
         OUT(-1),
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
         private int index;
-
         COLUMN(int index) {
             this.index = index;
         }
@@ -87,7 +90,24 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         }
 
     }
+
     private ArrayList<RowContainer> rowContainers = new ArrayList<RowContainer>(8);
+
+    /**
+     * Returns new instance of chessboard with pieces cloned
+     *
+     * @param basedOn
+     */
+    private ChessBoard(ChessBoard basedOn) {
+        this();
+        for (RowContainer squares : basedOn) {
+            for (Square square : squares) {
+                if(!square.isEmpty()) {
+                    this.placePiece(square.getPiece().clone(), this.squareAt(square.getColumn(), square.getRow()));
+                }
+            }
+        }
+    }
 
     public ChessBoard() {
         rowContainers.add(new RowContainer(this, ROW._1));
@@ -98,6 +118,20 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
         rowContainers.add(new RowContainer(this, ROW._6));
         rowContainers.add(new RowContainer(this, ROW._7));
         rowContainers.add(new RowContainer(this, ROW._8));
+    }
+
+    /**
+     * Returns new instance of chessboard with move invoked
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    public ChessBoard future(Square from, Square to) {
+        ChessBoard futureCopy = new ChessBoard(this);
+        futureCopy.move(futureCopy.squareAt(from.getColumn(), from.getRow()),
+                futureCopy.squareAt(to.getColumn(), to.getRow()));
+        return futureCopy;
     }
 
     @Override
@@ -156,6 +190,32 @@ public class ChessBoard implements Iterable<ChessBoard.RowContainer> {
             return  OUT_OF_BOARD;
         }
         return this.rowContainers.get(row.index).squares.get(column.index);
+    }
+
+    public Set<Square> getPopulatedSquares(Piece.Color color) {
+        HashSet<Square> squares = new HashSet();
+        for (RowContainer rowContainer : this) {
+            for (Square square : rowContainer) {
+                if(!square.isEmpty() && square.getPiece().getColor().equals(color)) {
+                    squares.add(square);
+                }
+            }
+
+        }
+        return squares;
+    }
+
+    public Set<Square> getPieces(Class<? extends Piece> pieceClass, Piece.Color color) {
+        HashSet<Square> squares = new HashSet();
+        for (RowContainer rowContainer : this) {
+            for (Square square : rowContainer) {
+                if(!square.isEmpty() && square.getPiece().getColor().equals(color) && square.getPiece().getClass().equals(pieceClass)) {
+                    squares.add(square);
+                }
+            }
+
+        }
+        return squares;
     }
 
     /**

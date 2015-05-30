@@ -2,7 +2,9 @@ package fi.monkeyball.chezz.domain.pieces;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
 
-public abstract class Piece {
+import java.lang.reflect.InvocationTargetException;
+
+public abstract class Piece implements Cloneable {
 
     public enum Color {
         WHITE, BLACK;
@@ -28,6 +30,20 @@ public abstract class Piece {
         MoveSet squares = new MoveSet(this);
         registerMovesOfThisPiece(squares, chessBoard, location);
         return squares;
+    }
+
+    public Piece clone() {
+        try {
+            return getClass().getConstructor(Color.class).newInstance(getColor());
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("Can't clone", e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException("Can't clone", e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException("Can't clone", e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Can't clone", e);
+        }
     }
 
     protected abstract void registerMovesOfThisPiece(MoveSet moveSet, ChessBoard chessBoard, ChessBoard.Square location);

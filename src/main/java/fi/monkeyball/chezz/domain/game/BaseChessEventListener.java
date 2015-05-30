@@ -1,5 +1,6 @@
 package fi.monkeyball.chezz.domain.game;
 
+import fi.monkeyball.chezz.domain.ChessBoard;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 
 /**
@@ -18,6 +19,16 @@ public class BaseChessEventListener implements ChessEventListener {
 
     @Override
     public void onCapture(Piece capturer, Piece capturee, StandardMove move, ChessGameState gameState) {
+
+    }
+
+    @Override
+    public void onCheck(ChessBoard.Square kingOnCheck) {
+
+    }
+
+    @Override
+    public void onCheckMate(ChessBoard.Square kingOnCheckMate) {
 
     }
 }

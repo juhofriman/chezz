@@ -1,5 +1,6 @@
 package fi.monkeyball.chezz.domain.game;
 
+import fi.monkeyball.chezz.domain.ChessBoard;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 
 /**
@@ -10,6 +11,6 @@ public interface ChessEventListener {
     void onGiveup(Giveup giveup, ChessGameState gameState);
     void onMove(StandardMove move, ChessGameState gameState);
     void onCapture(Piece capturer, Piece capturee, StandardMove move, ChessGameState gameState);
-
-
+    void onCheck(ChessBoard.Square kingOnCheck);
+    void onCheckMate(ChessBoard.Square kingOnCheckMate);
 }
