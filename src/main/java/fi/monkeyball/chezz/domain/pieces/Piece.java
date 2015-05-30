@@ -6,7 +6,9 @@ public abstract class Piece {
 
     public enum Color {
         WHITE, BLACK;
-
+        public Color compliment() {
+            return this == WHITE ? BLACK : WHITE;
+        }
     }
 
     private Color color;
