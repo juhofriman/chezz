@@ -1,9 +1,7 @@
 package fi.monkeyball.chezz.domain.game;
 
-import fi.monkeyball.chezz.domain.ChessBoard;
-import fi.monkeyball.chezz.domain.ChessBoardFactory;
-import fi.monkeyball.chezz.domain.EmptyChessBoardFactory;
-import fi.monkeyball.chezz.domain.StandardStartPositionChessboardFactory;
+import fi.monkeyball.chezz.domain.*;
+import fi.monkeyball.chezz.domain.pieces.King;
 import fi.monkeyball.chezz.domain.pieces.Piece;
 import org.junit.Before;
 import org.junit.Test;
@@ -110,6 +108,15 @@ public class GameOfChessTest {
         assertEquals(4, this.callCountRegisteringEventListener.onMoveCalled);
         assertFalse("Expecting turn to mutate state",
                 gameOfChess.getBoard().squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._5).isEmpty());
+    }
+
+    @Test
+    public void canAlsoGivePreInitializedBoardToChessGame() {
+        GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
+            place(Piece.Color.WHITE, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+            place(Piece.Color.BLACK, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+        }}.build());
+        assertFalse(gameOfChess.getState().isFinished());
     }
 
     public static class CallCountRegisteringEventListener implements ChessEventListener {

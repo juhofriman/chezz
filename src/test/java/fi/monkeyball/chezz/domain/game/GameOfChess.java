@@ -15,7 +15,11 @@ public class GameOfChess {
     private ChessEventListener chessEventListener;
 
     public GameOfChess(ChessBoardFactory factory) {
-        board = factory.instance();
+        this(factory.instance());
+    }
+
+    public GameOfChess(ChessBoard preBuiltChessBoard) {
+        board = preBuiltChessBoard;
         chessGameState = new ChessGameState();
     }
 
