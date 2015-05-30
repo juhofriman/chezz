@@ -10,10 +10,12 @@ public class StandardMove implements Move {
 
     private final ChessBoard.Square from;
     private final ChessBoard.Square to;
+    private final boolean isCapture;
 
     public StandardMove(ChessBoard.Square from, ChessBoard.Square to) {
         this.from = from;
         this.to = to;
+        this.isCapture = !to.isEmpty();
     }
 
     @Override
@@ -27,5 +29,9 @@ public class StandardMove implements Move {
 
     public ChessBoard.Square getTo() {
         return to;
+    }
+
+    public boolean isCapture() {
+        return isCapture;
     }
 }

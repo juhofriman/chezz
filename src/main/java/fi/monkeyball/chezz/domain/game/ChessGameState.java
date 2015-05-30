@@ -10,9 +10,10 @@ public class ChessGameState {
     private Piece.Color winner;
     private Piece.Color currentTurn;
 
-    public ChessGameState() {
-        this.currentTurn = Piece.Color.WHITE;
+    public ChessGameState(Piece.Color turn) {
+        this.currentTurn = turn;
     }
+
     public boolean isFinished() {
         return this.winner != null;
     }

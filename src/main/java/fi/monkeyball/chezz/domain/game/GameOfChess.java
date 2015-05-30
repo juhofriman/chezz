@@ -2,6 +2,7 @@ package fi.monkeyball.chezz.domain.game;
 
 import fi.monkeyball.chezz.domain.ChessBoard;
 import fi.monkeyball.chezz.domain.ChessBoardFactory;
+import fi.monkeyball.chezz.domain.pieces.Piece;
 
 /**
  * Created by juho on 29/05/15.
@@ -15,12 +16,12 @@ public class GameOfChess {
     private ChessEventListener chessEventListener;
 
     public GameOfChess(ChessBoardFactory factory) {
-        this(factory.instance());
+        this(factory.instance(), Piece.Color.WHITE);
     }
 
-    public GameOfChess(ChessBoard preBuiltChessBoard) {
+    public GameOfChess(ChessBoard preBuiltChessBoard, Piece.Color turn) {
         board = preBuiltChessBoard;
-        chessGameState = new ChessGameState();
+        chessGameState = new ChessGameState(turn);
     }
 
     public ChessBoard getBoard() {
@@ -57,10 +58,17 @@ public class GameOfChess {
 
         @Override
         public void visit(StandardMove move) {
+            Piece fromPiece = move.getFrom().getPiece();
+            Piece toPiece = move.getTo().getPiece();
             board.move(move.getFrom(), move.getTo());
             if(chessEventListener != null) {
-                chessEventListener.onMove(move, chessGameState);
+                if(move.isCapture()) {
+                    chessEventListener.onCapture(fromPiece, toPiece, move, chessGameState);
+                } else {
+                    chessEventListener.onMove(move, chessGameState);
+                }
             }
+
         }
     }
 }

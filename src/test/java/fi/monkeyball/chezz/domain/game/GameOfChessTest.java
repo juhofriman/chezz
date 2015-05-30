@@ -3,11 +3,13 @@ package fi.monkeyball.chezz.domain.game;
 import fi.monkeyball.chezz.domain.*;
 import fi.monkeyball.chezz.domain.pieces.King;
 import fi.monkeyball.chezz.domain.pieces.Piece;
+import fi.monkeyball.chezz.domain.pieces.Rook;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.Assert.*;
 
@@ -115,14 +117,57 @@ public class GameOfChessTest {
         GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
             place(Piece.Color.WHITE, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
             place(Piece.Color.BLACK, King.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
-        }}.build());
+        }}.build(), Piece.Color.WHITE);
         assertFalse(gameOfChess.getState().isFinished());
     }
+
+    @Test
+    public void testCapturingFiresOnCaptureEvent() {
+        GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
+            place(Piece.Color.WHITE, Rook.class, ChessBoard.COLUMN.A, ChessBoard.ROW._1);
+            place(Piece.Color.BLACK, Rook.class, ChessBoard.COLUMN.A, ChessBoard.ROW._7);
+        }}.build(), Piece.Color.WHITE);
+
+        gameOfChess.setMoveGenerator(new MoveGenerator() {
+            @Override
+            public Move getMove(Piece.Color turn, ChessBoard chessBoard) {
+                return new StandardMove(chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1),
+                        chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._7));
+            }
+        });
+
+        final Piece expectedCapturer = gameOfChess.getBoard().squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1).getPiece();
+        final Piece expectedCapturee = gameOfChess.getBoard().squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._7).getPiece();
+
+        final AtomicBoolean onMoveCalled = new AtomicBoolean(false);
+        final AtomicBoolean onCaptureCalled = new AtomicBoolean(false);
+        gameOfChess.setChessEventListener(new BaseChessEventListener() {
+
+            @Override
+            public void onMove(StandardMove move, ChessGameState gameState) {
+                onMoveCalled.set(true);
+            }
+
+            @Override
+            public void onCapture(Piece capturer, Piece capturee, StandardMove move, ChessGameState gameState) {
+                assertEquals("Expected captuter was wrong", expectedCapturer, capturer);
+                assertEquals("Expected captuter was wrong", expectedCapturee, capturee);
+                onCaptureCalled.set(true);
+            }
+        });
+
+        gameOfChess.turn();
+
+        assertFalse("Expecting onMove not called but it was", onMoveCalled.get());
+        assertTrue("Expecting onCapture called but it was not", onCaptureCalled.get());
+    }
+
 
     public static class CallCountRegisteringEventListener implements ChessEventListener {
 
         private int giveUpCalled = 0;
         private int onMoveCalled = 0;
+        private int onCaptureCalled = 0;
 
         @Override
         public void onGiveup(Giveup giveup, ChessGameState gameState) {
@@ -132,6 +177,11 @@ public class GameOfChessTest {
         @Override
         public void onMove(StandardMove move, ChessGameState gameState) {
             this.onMoveCalled++;
+        }
+
+        @Override
+        public void onCapture(Piece capturer, Piece capturee, StandardMove move, ChessGameState gameState) {
+            this.onCaptureCalled++;
         }
     }
 }
