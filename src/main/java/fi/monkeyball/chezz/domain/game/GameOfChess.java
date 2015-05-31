@@ -65,6 +65,9 @@ public class GameOfChess {
 
         @Override
         public void visit(StandardMove move) {
+            if(chessGameState.isCheck(board.future(move.getFrom(), move.getTo()))) {
+                throw new MoveCausesChessException();
+            }
             Piece fromPiece = move.getFrom().getPiece();
             Piece toPiece = move.getTo().getPiece();
             board.move(move.getFrom(), move.getTo());

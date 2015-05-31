@@ -208,6 +208,25 @@ public class GameOfChessTest {
         assertEquals(1, this.callCountRegisteringEventListener.onCheckMateCalled);
     }
 
+    @Test(expected = MoveCausesChessException.class)
+    public void testCantMoveKingToChessPosition() {
+        GameOfChess gameOfChess = new GameOfChess(new ChessBoardBuilder() {{
+            place(Piece.Color.WHITE, Rook.class, ChessBoard.COLUMN.A, ChessBoard.ROW._8);
+            place(Piece.Color.BLACK, King.class, ChessBoard.COLUMN.B, ChessBoard.ROW._1);
+        }}.build(), Piece.Color.BLACK);
+        gameOfChess.setChessEventListener(this.callCountRegisteringEventListener);
+
+        gameOfChess.setMoveGenerator(new MoveGenerator() {
+            @Override
+            public Move getMove(Piece.Color turn, ChessBoard chessBoard) {
+                return new StandardMove(chessBoard.squareAt(ChessBoard.COLUMN.B, ChessBoard.ROW._1),
+                        chessBoard.squareAt(ChessBoard.COLUMN.A, ChessBoard.ROW._1));
+            }
+        });
+
+        gameOfChess.turn();
+    }
+
 
 
     public static class CallCountRegisteringEventListener implements ChessEventListener {
