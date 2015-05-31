@@ -5,8 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fi.monkeyball</groupId>
-    <artifactId>chezzz</artifactId>
+    <artifactId>chezz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>chezz-engine</module>
+        <module>chezz-repl</module>
+    </modules>
 
     <dependencies>
         <dependency>
